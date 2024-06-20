@@ -1,0 +1,96 @@
+.TH BASECONV 1 "June 2024" "Version 1.0" "User Commands"
+
+.SH NAME
+baseconv \- convert numbers between different numerical bases
+
+.SH SYNOPSIS
+.B baseconv
+.RI [ --help | --h ]
+.RI [ -base " base " ]
+.RI [ -bin | -dec | -hex | -oct ]
+.I num
+.RI [ --all | --bin | --dec | --hex | --oct | --(first char of desired output bases concatenated) ]
+
+.SH DESCRIPTION
+.B baseconv
+is a command-line utility to convert a number (specified in various numerical bases) into different representations, including binary, decimal, hexadecimal, and octal.
+
+.SH OPTIONS
+.TP
+.B -base " base "
+Specify a custom numerical base for input. The base must be an integer between 2 and 36.
+
+.TP
+.B -bin, -b
+Convert the input number as binary (base-2).
+
+.TP
+.B -dec, -d
+Convert the input number as decimal (base-10).
+
+.TP
+.B -hex, -h
+Convert the input number as hexadecimal (base-16).
+
+.TP
+.B -oct, -o
+Convert the input number as octal (base-8).
+
+.TP
+.B --all, -a
+Display all conversions: binary, decimal, hexadecimal, and octal.
+
+.TP
+.B --bin, --b
+Display the input number in binary (base-2).
+
+.TP
+.B --dec, --d
+Display the input number in decimal (base-10).
+
+.TP
+.B --hex, --h
+Display the input number in hexadecimal (base-16).
+
+.TP
+.B --oct, --o
+Display the input number in octal (base-8).
+
+.TP
+.B --(first char of desired output bases concatenated)
+Display the input number in a custom order of bases (e.g., --bdoh can output any combination of --b, --d, --o, --h in order). Specify the custom output format using -- followed by the first letters of desired bases concatenated in order (e.g., --bd outputs --b and --d). This provides flexibility in choosing the output bases.
+
+.SH EXAMPLES
+.PP
+Convert a number from hexadecimal to decimal:
+.B
+baseconv -hex 1A --dec
+
+.PP
+Convert a number from binary to all supported bases:
+.B
+baseconv -bin 1010 --all
+
+.PP
+Custom input and custom output combination of bases:
+.B
+baseconv -base 20 1234 --dboh
+.B
+baseconv -base 16 ABC --dh
+
+.SH SEE ALSO
+.BR man "(1)"
+
+.SH AUTHOR
+Written by TensorPhobia.
+
+.SH BUGS
+Report bugs to tensorphobia@gmail.com.
+
+.SH PROJECT PAGE
+Visit the project's GitHub page for contributions and bug reports:
+.BR https://github.com/TensorPhobia/baseconv
+Contribute to development and help improve the utility.
+
+.SH COPYRIGHT
+This is free software; see the source for copying conditions. There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
