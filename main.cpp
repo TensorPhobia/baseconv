@@ -1,6 +1,9 @@
 #include <bitset>
+#include <cctype>
 #include <climits>
 #include <cstring>
+#include <iomanip>
+#include <ios>
 #include <iostream>
 using namespace std;
 /*
@@ -15,6 +18,43 @@ using namespace std;
 bases concatenated) ]
 ```roff
 */
+
+double parser(char *str, int base) {
+  double res = 0.0f;
+  bool encountredPoint = false;
+  double negativePower = 1.0 / base;
+  short sign = 1;
+  for (int i = 0; i < strlen(str); i++) {
+    if (str[i] == ',' || str[i] == '.') {
+      encountredPoint = true;
+      continue;
+    }
+    if(str[i] == '-'){
+      sign *= -1;
+    }
+    if (isdigit(str[i])) {
+      if (encountredPoint) {
+        res += (str[i] - '0') * negativePower;
+        negativePower *= 1.0 / base;
+      } else {
+        res = res * base + (str[i] - '0');
+      }
+    } else if (isalpha(str[i])) {
+      if (encountredPoint) {
+        res += (toupper(str[i]) - 55) * negativePower;
+        negativePower *= 1.0 / base;
+      } else {
+        res = res * base + (toupper(str[i]) - 55);
+      }
+    }
+  }
+  /*If no point found make output precision 0*/
+  if(encountredPoint == false){
+    cout << setprecision(0);
+  }
+
+  return res * sign;
+}
 
 int main(int argc, char **argv) {
   // debuging
@@ -48,7 +88,7 @@ int main(int argc, char **argv) {
     return 0;
   }
 
-  long input = 0;
+  double input = 0;
 
   /*
   bas
@@ -64,19 +104,27 @@ int main(int argc, char **argv) {
     int customBase = 0;
     offset = 1;
     customBase = atoi(argv[2]);
-    input = strtol(argv[3], nullptr, customBase);
+    // handling invalid bases
+    if (customBase < 2 || customBase > 32) {
+      cerr << "Error: invalid base given " << endl
+           << "please make sure your base is in range [2,32] inclusive"
+           << endl;
+      return 1;
+    }
+
+    input = parser(argv[3], customBase);
   } else if (strcmp(argv[1], "-bin") == 0 || strcmp(argv[1], "-BIN") == 0 ||
              strcmp(argv[1], "-b") == 0 || strcmp(argv[1], "-B") == 0) {
-    input = strtol(argv[2], nullptr, 2);
+    input = parser(argv[2], 2);
   } else if (strcmp(argv[1], "-dec") == 0 || strcmp(argv[1], "-DEC") == 0 ||
              strcmp(argv[1], "-d") == 0 || strcmp(argv[1], "-D") == 0) {
-    input = strtol(argv[2], nullptr, 10);
+    input = parser(argv[2], 10);
   } else if (strcmp(argv[1], "-hex") == 0 || strcmp(argv[1], "-HEX") == 0 ||
              strcmp(argv[1], "-h") == 0 || strcmp(argv[1], "-H") == 0) {
-    input = strtol(argv[2], nullptr, 16);
+    input = parser(argv[2], 16);
   } else if (strcmp(argv[1], "-oct") == 0 || strcmp(argv[1], "-OCT") == 0 ||
              strcmp(argv[1], "-o") == 0 || strcmp(argv[1], "-O") == 0) {
-    input = strtol(argv[2], nullptr, 8);
+    input = parser(argv[2], 8);
   } else {
     // throw an error no base is given
     cerr << "Error: no valid base is given " << endl
@@ -91,7 +139,7 @@ int main(int argc, char **argv) {
   hex
   oct
   */
-
+  cout << fixed;
   if (strcmp(argv[3 + offset], "--all") == 0 ||
       strcmp(argv[3 + offset], "--ALL") == 0 ||
       strcmp(argv[3 + offset], "--a") == 0 ||
