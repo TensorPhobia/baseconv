@@ -14,7 +14,8 @@
 - Quick and responsive
 - Includes a man page as well as a --help flag to demonstrate how to build a command  
 - Includes an installation bash script to allow you to use the command anywhere on your computer
-
+- Negative number support
+- Floating point numbers support
 
 
 ## Installation
@@ -46,8 +47,6 @@ $ man baseconv
 ```
 
 ## Roadmap
-
-- Add twos compliment support
 
 - Add colored output to distinguish number from sign 
 
