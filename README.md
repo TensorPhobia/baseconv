@@ -34,7 +34,16 @@ dec= 43
 hex= 2b
 oct= 53
 ```
-this command will interpret 1010111 in binary and output the result in all common bases
+this command will interpret 1010111 in binary and output the result in decimal then hexadecimal then octal
+
+```bash
+$ baseconv -hex FE,CD --a
+bin= 11111110.11001101
+dec= 254.801
+hex= FE.CD
+oct= 376.632
+```
+this command will interpret FE,CD in hexadecimal and output the result in all common bases
 
 ## Documentation
 for documentation use 
