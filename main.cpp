@@ -96,6 +96,7 @@ string doubleToBase(double x, int base) {
   
   if(fract > 0.0){
     str.push_back('.');
+    vector<double> memory;
     do {
         fract*=base;
         if(((int)fract) <= 9){
