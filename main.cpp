@@ -83,7 +83,7 @@ int containMultiplePoints(string str) {
 int findInvalidDigitPosition(string str, int base) {
   for (int i = 0; i < str.length(); i++) {
     char ch = str[i];
-    if (isalnum(ch) || ch == '.' || ch == ',') {
+    if (isalnum(ch) || ch == '.' || ch == ',' || ch == '-') {
       if (isdigit(ch) && (ch - '0' >= base)) {
         return i; // Return the position of the invalid digit
       } else if (isalpha(ch) && (toupper(ch) - 'A' + 10 >= base)) {
